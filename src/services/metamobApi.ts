@@ -1,6 +1,5 @@
 import type { UserMonster, UserMonsterFilters } from '../types/monster';
 
-// Utiliser les Netlify Functions en production, ou l'API directe en développement
 const isProduction = import.meta.env.PROD;
 const API_BASE_URL = isProduction ? '/.netlify/functions/metamob-proxy' : '/api';
 const USER_KEY = import.meta.env.VITE_USER_KEY;
@@ -16,7 +15,6 @@ export class MetaMobApiService {
       'Accept': 'application/json',
     };
 
-    // En développement, ajouter les headers API directement
     if (!isProduction) {
       headers['HTTP-X-APIKEY'] = API_KEY;
       headers['User-Agent'] = 'Mozilla/5.0 (compatible; MetaMob-Client)';

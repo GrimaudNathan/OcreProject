@@ -1,5 +1,4 @@
 export const handler = async (event, context) => {
-  // Vérifier que la méthode est autorisée
   if (event.httpMethod !== 'GET' && event.httpMethod !== 'PUT') {
     return {
       statusCode: 405,
@@ -7,7 +6,6 @@ export const handler = async (event, context) => {
     };
   }
 
-  // Récupérer les variables d'environnement
   const apiKey = process.env.VITE_API_KEY;
   const userKey = process.env.VITE_USER_KEY;
   
@@ -18,17 +16,14 @@ export const handler = async (event, context) => {
     };
   }
 
-  // Construire l'URL de l'API MetaMob
   const path = event.path.replace('/.netlify/functions/metamob-proxy', '');
   const apiUrl = `https://api.metamob.fr${path}`;
   
-  // Ajouter les query parameters s'ils existent
   const queryString = event.queryStringParameters ? 
     '?' + new URLSearchParams(event.queryStringParameters).toString() : '';
   
   const fullApiUrl = apiUrl + queryString;
 
-  // Préparer les headers
   const headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -36,7 +31,6 @@ export const handler = async (event, context) => {
     'User-Agent': 'Mozilla/5.0 (compatible; MetaMob-Client)'
   };
 
-  // Ajouter la clé utilisateur pour les requêtes PUT
   if (event.httpMethod === 'PUT' && userKey) {
     headers['HTTP-X-USERKEY'] = userKey;
   }
