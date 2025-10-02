@@ -1,4 +1,4 @@
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // Vérifier que la méthode est autorisée
   if (event.httpMethod !== 'GET' && event.httpMethod !== 'PUT') {
     return {
@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const fetch = (await import('node-fetch')).default;
+    const { default: fetch } = await import('node-fetch');
     
     const response = await fetch(fullApiUrl, {
       method: event.httpMethod,
