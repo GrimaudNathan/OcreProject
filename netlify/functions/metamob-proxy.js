@@ -42,8 +42,6 @@ export const handler = async (event, context) => {
   }
 
   try {
-    const { default: fetch } = await import('node-fetch');
-    
     const response = await fetch(fullApiUrl, {
       method: event.httpMethod,
       headers,
