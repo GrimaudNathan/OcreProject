@@ -2,6 +2,7 @@ import type { UserMonster, UserMonsterFilters } from '../types/monster';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const USER_KEY = import.meta.env.VITE_USER_KEY;
+const USER_PSEUDO = import.meta.env.VITE_USER_PSEUDO;
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS';
 
@@ -38,11 +39,11 @@ export class MetaMobApiService {
     
     const queryString = params.toString();
     
-    return this.request<UserMonster[]>('GET', `/utilisateurs/Grim-G/monstres${queryString ? `?${queryString}` : ''}`);
+    return this.request<UserMonster[]>('GET', `/utilisateurs/${USER_PSEUDO}/monstres${queryString ? `?${queryString}` : ''}`);
   }
 
   async updateUserMonsterQuantity(monsterId: number, quantityChange: string): Promise<any> {
-    return this.request<any>('PUT', '/utilisateurs/Grim-G/monstres', [{
+    return this.request<any>('PUT', `/utilisateurs/${USER_PSEUDO}/monstres`, [{
       id: monsterId,
       quantite: quantityChange
     }]);

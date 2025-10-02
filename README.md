@@ -30,7 +30,7 @@ npm install
 
 # Configurer les variables d'environnement
 cp .env.example .env
-# Éditer .env avec vos clés API MetaMob
+# Éditer .env avec vos clés API MetaMob et votre pseudo utilisateur
 
 # Démarrer le serveur de développement
 npm run dev
@@ -86,18 +86,24 @@ server: {
 ```
 
 ### Variables d'environnement
-Les clés API sont configurées via des variables d'environnement :
+Les clés API et le pseudo utilisateur sont configurés via des variables d'environnement :
 
 ```bash
 # .env
 VITE_API_BASE_URL=/api
 VITE_USER_KEY=your-user-key
 VITE_API_KEY=your-api-key
+VITE_USER_PSEUDO=your-pseudo
 ```
 
-**⚠️ Important :** Copiez `.env.example` vers `.env` et configurez vos clés API MetaMob.
+**⚠️ Important :** Copiez `.env.example` vers `.env` et configurez vos clés API MetaMob et votre pseudo utilisateur.
 
 ## 🎨 Fonctionnalités détaillées
+
+### Configuration utilisateur
+- **Pseudo configurable** : Le pseudo utilisateur est défini via la variable d'environnement `VITE_USER_PSEUDO`
+- **Flexibilité** : Possibilité de changer facilement d'utilisateur sans modifier le code
+- **Sécurité** : Le pseudo n'est pas codé en dur dans le code source
 
 ### Filtres
 - **Recherche par nom** : Recherche en temps réel avec debounce
@@ -127,12 +133,14 @@ L'application utilise l'API officielle MetaMob pour :
 ### Endpoints utilisés
 ```typescript
 // Récupérer les monstres avec filtres
-GET /api/utilisateurs/Grim-G/monstres?nom=dragon&type=monstre
+GET /api/utilisateurs/{USER_PSEUDO}/monstres?nom=dragon&type=monstre
 
 // Modifier la quantité d'un monstre
-PUT /api/utilisateurs/Grim-G/monstres
+PUT /api/utilisateurs/{USER_PSEUDO}/monstres
 Body: [{ "id": 123, "quantite": "+1" }]
 ```
+
+**Note :** Le pseudo utilisateur est configuré via la variable d'environnement `VITE_USER_PSEUDO`.
 
 ## 🚀 Déploiement
 
