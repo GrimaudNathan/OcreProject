@@ -1,4 +1,4 @@
-# Ocre App - MetaMob
+# Ocre App
 
 Application React pour gérer votre collection de monstres MetaMob avec une interface moderne et intuitive.
 
