@@ -53,11 +53,32 @@ export class MetaMobApiService {
     return this.request<UserMonster[]>('GET', `/utilisateurs/${USER_PSEUDO}/monstres${queryString ? `?${queryString}` : ''}`);
   }
 
-  async updateUserMonsterQuantity(monsterId: number, quantityChange: string): Promise<any> {
-    return this.request<any>('PUT', `/utilisateurs/${USER_PSEUDO}/monstres`, [{
+  async updateUserMonsterQuantity(monsterId: number, quantityChange: string, currentQuantity: number): Promise<any> {
+    let newQuantity: number;
+    if (quantityChange.startsWith('+')) {
+      newQuantity = currentQuantity + parseInt(quantityChange.substring(1));
+    } else if (quantityChange.startsWith('-')) {
+      newQuantity = Math.max(0, currentQuantity - parseInt(quantityChange.substring(1)));
+    } else {
+      newQuantity = parseInt(quantityChange);
+    }
+
+    let etat: string;
+    if (newQuantity < 1) {
+      etat = 'recherche';
+    } else if (newQuantity === 1) {
+      etat = 'aucun';
+    } else {
+      etat = 'propose';
+    }
+
+    const updateData = [{
       id: monsterId,
-      quantite: quantityChange
-    }]);
+      etat: etat,
+      quantite: newQuantity
+    }];
+
+    return this.request<any>('PUT', `/utilisateurs/${USER_PSEUDO}/monstres`, updateData);
   }
 }
 

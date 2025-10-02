@@ -26,9 +26,9 @@ const MonsterList: React.FC = () => {
     }
   }, [filters]);
 
-  const updateMonsterQuantity = useCallback(async (monsterId: number, change: string) => {
+  const updateMonsterQuantity = useCallback(async (monsterId: number, change: string, currentQuantity: number) => {
     try {
-      await metamobApiService.updateUserMonsterQuantity(monsterId, change);
+      await metamobApiService.updateUserMonsterQuantity(monsterId, change, currentQuantity);
       await loadUserMonsters();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erreur lors de la modification de la quantité');
@@ -142,14 +142,14 @@ const MonsterList: React.FC = () => {
               <td>{monster.quantite}</td>
               <td>
                 <button 
-                  onClick={() => updateMonsterQuantity(monster.id, '+1')}
+                  onClick={() => updateMonsterQuantity(monster.id, '+1', monster.quantite)}
                   className="quantity-btn plus-btn"
                   title="Augmenter la quantité"
                 >
                   +
                 </button>
                 <button 
-                  onClick={() => updateMonsterQuantity(monster.id, '-1')}
+                  onClick={() => updateMonsterQuantity(monster.id, '-1', monster.quantite)}
                   className="quantity-btn minus-btn"
                   title="Diminuer la quantité"
                 >
