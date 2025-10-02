@@ -144,12 +144,23 @@ Body: [{ "id": 123, "quantite": "+1" }]
 
 ## 🚀 Déploiement
 
+### Déploiement sur Netlify
+
+L'application utilise des Netlify Functions pour contourner les restrictions CORS de l'API MetaMob.
+
+1. **Variables d'environnement** : Configurez dans les paramètres Netlify :
+   - `VITE_API_KEY` : Votre clé API MetaMob
+   - `VITE_USER_KEY` : Votre clé utilisateur MetaMob  
+   - `VITE_USER_PSEUDO` : Votre pseudonyme MetaMob
+
+2. **Build automatique** : Netlify détectera automatiquement la configuration et déploiera les fonctions.
+
 ```bash
 # Construire pour la production
 npm run build
 
 # Les fichiers sont générés dans le dossier 'dist'
-# Déployez le contenu de 'dist' sur votre serveur
+# Les Netlify Functions sont dans 'netlify/functions'
 ```
 
 ## 🤝 Contribution
