@@ -1,10 +1,14 @@
 import MonsterList from './components/MonsterList.tsx'
+import ArchimonsterCounter from './components/ArchimonsterCounter.tsx'
 import './App.css'
 
 function App() {
   return (
     <div>
-      <h1>Ocre App - MetaMob</h1>
+      <div className="header-section">
+        <h1>Ocre App</h1>
+        <ArchimonsterCounter />
+      </div>
       <MonsterList />
     </div>
   )
