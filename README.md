@@ -25,46 +25,60 @@ Application React pour gérer votre collection de monstres MetaMob avec une inte
 git clone <repository-url>
 cd ocre-project
 
-# Installer les dépendances
-npm install
+# Installer les dépendances avec pnpm
+pnpm install
 
 # Configurer les variables d'environnement
 cp .env.example .env
 # Éditer .env avec vos clés API MetaMob et votre pseudo utilisateur
 
 # Démarrer le serveur de développement
-npm run dev
+pnpm run dev
 ```
 
 ## 🛠️ Scripts disponibles
 
 ```bash
 # Développement
-npm run dev          # Démarrer le serveur de développement
+pnpm run dev          # Démarrer le serveur de développement
 
 # Production
-npm run build        # Construire l'application
-npm run preview      # Prévisualiser la build
+pnpm run build        # Construire l'application
+pnpm run preview      # Prévisualiser la build
 
 # Qualité du code
-npm run lint         # Vérifier le code avec ESLint
+pnpm run lint         # Vérifier le code avec ESLint
 ```
 
 ## 🏗️ Structure du projet
 
 ```
-src/
-├── components/
-│   ├── MonsterList.tsx      # Composant principal
-│   └── MonsterList.css     # Styles du composant
-├── services/
-│   └── metamobApi.ts       # Service API MetaMob
-├── types/
-│   └── monster.ts          # Types TypeScript
-├── App.tsx                 # Composant racine
-├── App.css                 # Styles globaux
-├── main.tsx               # Point d'entrée
-└── index.css              # Styles de base
+ocre-project/
+├── src/
+│   ├── components/
+│   │   ├── ArchimonsterCounter.tsx    # Compteur d'archimonstres
+│   │   ├── ArchimonsterCounter.css   # Styles du compteur
+│   │   ├── MonsterList.tsx           # Liste des monstres
+│   │   └── MonsterList.css           # Styles de la liste
+│   ├── services/
+│   │   └── metamobApi.ts             # Service API MetaMob
+│   ├── types/
+│   │   └── monster.ts                # Types TypeScript
+│   ├── App.tsx                       # Composant racine
+│   ├── App.css                       # Styles globaux
+│   ├── main.tsx                      # Point d'entrée
+│   └── index.css                     # Styles de base
+├── netlify/
+│   └── functions/
+│       └── metamob-proxy.js          # Netlify Function pour proxy API
+├── public/
+│   └── favicon.ico                   # Icône du site
+├── netlify.toml                      # Configuration Netlify
+├── .npmrc                            # Configuration pnpm
+├── package.json                      # Dépendances et scripts
+├── vite.config.ts                    # Configuration Vite
+├── tsconfig.json                     # Configuration TypeScript
+└── README.md                         # Documentation
 ```
 
 ## 🔧 Configuration
@@ -97,31 +111,6 @@ VITE_USER_PSEUDO=your-pseudo
 ```
 
 **⚠️ Important :** Copiez `.env.example` vers `.env` et configurez vos clés API MetaMob et votre pseudo utilisateur.
-
-## 🎨 Fonctionnalités détaillées
-
-### Configuration utilisateur
-- **Pseudo configurable** : Le pseudo utilisateur est défini via la variable d'environnement `VITE_USER_PSEUDO`
-- **Flexibilité** : Possibilité de changer facilement d'utilisateur sans modifier le code
-- **Sécurité** : Le pseudo n'est pas codé en dur dans le code source
-
-### Filtres
-- **Recherche par nom** : Recherche en temps réel avec debounce
-- **Filtre par type** : Monstre, Archimonstre, Boss
-- **Filtre par étape** : Numéro d'étape spécifique
-- **Masquer possédés** : Afficher seulement les monstres non possédés
-- **Afficher doublons** : Voir uniquement les monstres avec quantité ≥ 2
-
-### Actions
-- **Modification des quantités** : Boutons + et - pour chaque monstre
-- **Synchronisation** : Mise à jour automatique après chaque action
-- **Gestion d'erreurs** : Affichage des erreurs API
-
-### Interface
-- **Design moderne** : Interface claire et intuitive
-- **Animations** : Transitions fluides et feedback visuel
-- **Responsive** : Adaptation à toutes les tailles d'écran
-- **Accessibilité** : Navigation au clavier et lecteurs d'écran
 
 ## 🔄 API MetaMob
 
@@ -157,7 +146,7 @@ L'application utilise des Netlify Functions pour contourner les restrictions COR
 
 ```bash
 # Construire pour la production
-npm run build
+pnpm run build
 
 # Les fichiers sont générés dans le dossier 'dist'
 # Les Netlify Functions sont dans 'netlify/functions'
